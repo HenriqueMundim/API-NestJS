@@ -1,4 +1,4 @@
-import { Injectable, Post, Body, Get, Param, Patch, Put } from '@nestjs/common'
+import { Injectable, Post, Get, Patch, Put, Delete } from '@nestjs/common'
 
 @Injectable()
 export class UserService {
@@ -35,6 +35,13 @@ export class UserService {
         return {
             method: 'Patch',
             body,
+            params
+        }
+    }
+
+    @Delete()
+    async delete(params) {
+        return {
             params
         }
     }
