@@ -1,9 +1,10 @@
-import { Injectable, Post, Body, Get, Param } from '@nestjs/common'
+import { Injectable, Post, Body, Get, Param, Patch, Put } from '@nestjs/common'
 
 @Injectable()
 export class UserService {
+
     @Post()
-    async create(@Body() body) {
+    async create(body) {
         return { body }
     }
 
@@ -13,7 +14,29 @@ export class UserService {
     }
 
     @Get()
-    async readOne(@Param() params) {
-        return { user: [] }
+    async readOne(params) {
+        return {
+            user: [],
+            params
+        }
     }
+
+    @Put()
+    async update(body, params) {
+        return {
+            method: 'Put',
+            body,
+            params
+        }
+    }
+
+    @Patch()
+    async updatePartial(body, params) {
+        return {
+            method: 'Patch',
+            body,
+            params
+        }
+    }
+
 }
