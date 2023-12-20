@@ -2,6 +2,7 @@ import { Controller, Post, Body, Get, Param, Put, Patch, Delete } from "@nestjs/
 import { UserService } from "./user.service";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UpdatePutUserDTO } from './dto/update-put-user.dto';
+import { UpdatePatchUserDTO } from "./dto/update-patch-user.dto";
 
 @Controller('users')
 export class UserController {
@@ -28,7 +29,7 @@ export class UserController {
     }
 
     @Patch(':id')
-    updatePatial(@Body() body, @Param() params) {
+    updatePatial(@Body() body: UpdatePatchUserDTO, @Param() params) {
         return this.userService.updatePartial(body, params);
     }
 
