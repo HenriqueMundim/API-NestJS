@@ -14,35 +14,35 @@ export class UserService {
     }
 
     @Get()
-    async readOne(params) {
+    async readOne(id) {
         return {
             user: [],
-            params
+            id
         }
     }
 
     @Put()
-    async update(body, params) {
+    async update(body, id) {
         return {
             method: 'Put',
             body,
-            params
+            id
         }
     }
 
     @Patch()
-    async updatePartial(body, params) {
+    async updatePartial(body, id) {
         return {
             method: 'Patch',
             body,
-            params
+            id
         }
     }
 
     @Delete()
-    async delete(params) {
+    async delete(id) {
         return {
-            params
+            id
         }
     }
 
