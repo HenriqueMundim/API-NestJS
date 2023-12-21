@@ -19,17 +19,17 @@ export class UserController {
     }
 
     @Get(':id')
-    readOne(@Param('id') id: ParseIntPipe) {
+    readOne(@Param('id', ParseIntPipe) id) {
         return this.userService.readOne(id);
     }
 
     @Put(':id')
-    update(@Body() body: UpdatePutUserDTO, @Param('id') id: ParseIntPipe) {
+    update(@Body() body: UpdatePutUserDTO, @Param('id', ParseIntPipe) id) {
         return this.userService.update(body, id);
     }
 
     @Patch(':id')
-    updatePatial(@Body() body: UpdatePatchUserDTO, @Param('id') id: ParseIntPipe) {
+    updatePatial(@Body() body: UpdatePatchUserDTO, @Param('id', ParseIntPipe) id) {
         return this.userService.updatePartial(body, id);
     }
 
