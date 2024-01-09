@@ -1,6 +1,8 @@
 import { Injectable, Post, Get, Patch, Put, Delete } from '@nestjs/common'
 import { CreateUserDTO } from './dto/create-user.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
+import { UpdatePutUserDTO } from './dto/update-put-user.dto'
+import { UpdatePatchUserDTO } from './dto/update-patch-user.dto'
 
 @Injectable()
 export class UserService {
@@ -20,33 +22,36 @@ export class UserService {
 
     @Get()
     async read() {
-        return { users: [] }
+        return this.prisma.user.findMany()
     }
 
     @Get()
-    async readOne(id) {
-        return {
-            user: [],
-            id
-        }
+    async readOne(id: number) {
+        return this.prisma.user.findUnique({
+            where: {
+                id
+            }
+        })
     }
 
     @Put()
-    async update(body, id) {
-        return {
-            method: 'Put',
-            body,
-            id
-        }
+    async update(data: UpdatePutUserDTO, id: number) {
+        return this.prisma.user.update({
+            data,
+            where: {
+                id
+            }
+        })
     }
 
     @Patch()
-    async updatePartial(body, id) {
-        return {
-            method: 'Patch',
-            body,
-            id
-        }
+    async updatePartial(data: UpdatePatchUserDTO, id: number) {
+        return this.prisma.user.update({
+            data,
+            where: {
+                id
+            }
+        })
     }
 
     @Delete()
