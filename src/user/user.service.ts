@@ -1,4 +1,4 @@
-import { Injectable, Post, Get, Patch, Put, Delete } from '@nestjs/common'
+import { Injectable, Post, Get, Patch, Put, Delete, NotFoundException } from '@nestjs/common'
 import { CreateUserDTO } from './dto/create-user.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { UpdatePutUserDTO } from './dto/update-put-user.dto'
@@ -17,12 +17,12 @@ export class UserService {
                 email,
                 password
             }
-        })
+        });
     }
 
     @Get()
     async read() {
-        return this.prisma.user.findMany()
+        return this.prisma.user.findMany();
     }
 
     @Get()
@@ -31,33 +31,50 @@ export class UserService {
             where: {
                 id
             }
-        })
+        });
     }
 
     @Put()
     async update(data: UpdatePutUserDTO, id: number) {
+
+        await this.exists(id)
+
         return this.prisma.user.update({
             data,
             where: {
                 id
             }
-        })
+        });
     }
 
     @Patch()
     async updatePartial(data: UpdatePatchUserDTO, id: number) {
+
+        await this.exists(id);
+
         return this.prisma.user.update({
             data,
             where: {
                 id
             }
-        })
+        });
     }
 
     @Delete()
-    async delete(id) {
-        return {
-            id
+    async delete(id: number) {
+
+        await this.exists(id);
+
+        return this.prisma.user.delete({
+            where: {
+                id
+            }
+        });
+    }
+
+    async exists(id: number) {
+        if (!(await this.readOne(id))) {
+            throw new NotFoundException('');
         }
     }
 
