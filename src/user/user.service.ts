@@ -74,7 +74,7 @@ export class UserService {
 
     async exists(id: number) {
         if (!(await this.readOne(id))) {
-            throw new NotFoundException('');
+            throw new NotFoundException('User not found');
         }
     }
 
