@@ -1,8 +1,9 @@
-import { Controller, Post, Body, Get, Param, Put, Patch, Delete, ParseIntPipe, UseInterceptors } from "@nestjs/common";
+import { Controller, Post, Body, Get, Param, Put, Patch, Delete, ParseIntPipe } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UpdatePutUserDTO } from './dto/update-put-user.dto';
 import { UpdatePatchUserDTO } from "./dto/update-patch-user.dto";
+import { ParamId } from "src/decorators/param-id.decorator";
 
 @Controller('users')
 export class UserController {
@@ -18,22 +19,22 @@ export class UserController {
     }
 
     @Get(':id')
-    readOne(@Param('id', ParseIntPipe) id) {
+    readOne(@ParamId() id) {
         return this.userService.readOne(id);
     }
 
     @Put(':id')
-    update(@Body() body: UpdatePutUserDTO, @Param('id', ParseIntPipe) id) {
+    update(@Body() body: UpdatePutUserDTO, @ParamId() id) {
         return this.userService.update(body, id);
     }
 
     @Patch(':id')
-    updatePatial(@Body() body: UpdatePatchUserDTO, @Param('id', ParseIntPipe) id) {
+    updatePatial(@Body() body: UpdatePatchUserDTO, @ParamId() id) {
         return this.userService.updatePartial(body, id);
     }
 
     @Delete(':id')
-    delete(@Param('id', ParseIntPipe) id) {
+    delete(@ParamId() id) {
         return this.userService.delete(id);
     }
 }
